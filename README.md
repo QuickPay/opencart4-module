@@ -1,5 +1,6 @@
 # QuickPay plugin for OpenCart 4
 This is the official QuickPay plugin for Opencart 4+
+
 The plugin is maintained by SharksMedia A/S (https://sharksmedia.dk)
 
 This plugin only supports the v10+ manager.
