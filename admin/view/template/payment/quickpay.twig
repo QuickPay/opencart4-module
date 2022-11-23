@@ -1,0 +1,89 @@
+{{ header }}{{ column_left }}
+<div id="content">
+  <div class="page-header">
+    <div class="container-fluid">
+      <div class="float-end">
+        <button type="submit" form="form-payment" data-bs-toggle="tooltip" title="{{ button_save }}" class="btn btn-primary"><i class="fa-solid fa-floppy-disk"></i></button>
+        <a href="{{ back }}" data-bs-toggle="tooltip" title="{{ button_back }}" class="btn btn-light"><i class="fa-solid fa-reply"></i></a>
+      </div>
+      <h1>{{ heading_title }}</h1>
+      <ol class="breadcrumb">
+        {% for breadcrumb in breadcrumbs %}
+          <li class="breadcrumb-item"><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
+        {% endfor %}
+      </ol>
+    </div>
+  </div>
+  <div class="container-fluid">
+    <div class="card">
+      <div class="card-header"><i class="fa-solid fa-pencil"></i> {{ text_edit }}</div>
+      <div class="card-body">
+        <form id="form-payment" action="{{ save }}" method="post" data-oc-toggle="ajax">
+          <div class="alert alert-info">{{ help_quickpay_setup }}</div>
+          {{ section.api }}
+
+          <fieldset>
+            {{ section.gateway }}
+            <div class="row mb-3">
+              <label for="input-payment-methods" class="col-sm-2 col-form-label">{{ entry_payment_methods }}</label>
+              <div class="col-sm-10">
+                <input type="text" name="payment_{{ instance }}_payment_methods" value="{{ settings.payment_methods }}" placeholder="{{ entry_payment_methods }}" id="input-payment-methods" class="form-control"/>
+                <div class="form-text">{{ help_payment_methods }}</div>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <label for="input-branding-id" class="col-sm-2 col-form-label">{{ entry_branding_id }}</label>
+              <div class="col-sm-10">
+                <input type="text" name="payment_{{ instance }}_branding_id" value="{{ settings.branding_id }}" placeholder="{{ entry_branding_id }}" id="input-branding-id" class="form-control"/>
+                <div class="form-text">{{ help_branding_id }}</div>
+              </div>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend>{{ text_panel_heading_transaction }}</legend>
+
+            <div class="row mb-3">
+              <label for="input-autofee" class="col-sm-2 col-form-label">{{ entry_autofee }}</label>
+              <div class="col-sm-10">
+                <select name="payment_{{ instance }}_autofee" id="input-autofee" class="form-select">
+                  <option value="1"{% if settings.autofee %} selected="selected"{% endif %}>{{ text_enabled }}</option>
+                  <option value="0"{% if not settings.autofee %} selected="selected"{% endif %}>{{ text_disabled }}</option>
+                </select>
+                <div class="form-text">{{ help_autofee }}</div>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <label for="input-autocapture" class="col-sm-2 col-form-label">{{ entry_autocapture }}</label>
+              <div class="col-sm-10">
+                <select name="payment_{{ instance }}_autocapture" id="input-autocapture" class="form-select">
+                  <option value="1"{% if settings.autocapture %} selected="selected"{% endif %}>{{ text_enabled }}</option>
+                  <option value="0"{% if not settings.autocapture %} selected="selected"{% endif %}>{{ text_disabled }}</option>
+                </select>
+                <div class="form-text">{{ help_autocapture }}</div>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <label for="input-text-on-statement" class="col-sm-2 col-form-label">{{ entry_text_on_statement }}</label>
+              <div class="col-sm-10">
+                <input type="text" name="payment_{{ instance }}_text_on_statement" value="{{ settings.text_on_statement }}" placeholder="{{ entry_text_on_statement }}" id="input-text-on-statement" class="form-control"/>
+                <div class="form-text">{{ help_text_on_statement }}</div>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <label for="input-order-number-prefix" class="col-sm-2 col-form-label">{{ entry_order_number_prefix }}</label>
+              <div class="col-sm-10">
+                <input type="text" name="payment_{{ instance }}_order_number_prefix" value="{{ settings.order_number_prefix }}" placeholder="{{ entry_order_number_prefix }}" id="input-order-number-prefix" class="form-control"/>
+                <div class="form-text">{{ help_order_number_prefix }}</div>
+              </div>
+            </div>
+          </fieldset>
+
+          {{ section.others }}
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+{{ footer }}
