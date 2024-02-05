@@ -11,7 +11,7 @@ Limited plugin support is offered by QuickPay support.
 
 1. Navigate to your OpenCart administration page.
 2. On your left, click the "Extensions" -> "Installer".
-3. Click the blue "Upload" button and select the module file on your computer ([quickpay4-latest.ocmod.zip](https://github.com/QuickPay/opencart4-module/raw/master/quickpay4-latest.ocmod.zip)).
+3. Click the blue "Upload" button and select the module file on your computer ([quickpay.ocmod.zip](https://github.com/QuickPay/opencart4-module/raw/master/quickpay.ocmod.zip)).
 4. After installation click the "Extensions" -> "Extensions" -> "Payments".
 5. Find the QuickPay modules of your choice in the list and click the green install icon.
 6. Click the blue button to edit the module.
