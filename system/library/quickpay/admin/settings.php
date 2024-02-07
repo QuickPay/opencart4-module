@@ -172,12 +172,14 @@ trait Settings {
 			$this->data['settings']['cron_token'] = md5( mt_rand() );
 		}
 
-		if ( $this->request->server['HTTPS'] ) {
+/* 		if ( $this->request->server['HTTPS'] ) {
 			$server = HTTPS_SERVER;
 		} else {
 			$server = HTTP_SERVER;
 		}
-
+ */
+        $server = HTTP_SERVER;
+		
 		$this->data['settings']['cron_url'] = 'https://' . parse_url( $server, PHP_URL_HOST ) . dirname( parse_url( $server, PHP_URL_PATH ) ) . '/index.php?route=extension/recurring/' . $this->getInstanceName() . '/recurring&cron_token={CRON_TOKEN}';
 
 		// Load order statuses
