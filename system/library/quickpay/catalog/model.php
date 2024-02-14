@@ -349,33 +349,37 @@ trait Model {
 	 *
 	 * @return array
 	 */
-	public function getMethodData( $address, $total, $code = '') {
-		$query = $this->db->query( "SELECT * FROM " . DB_PREFIX . "zone_to_geo_zone WHERE geo_zone_id = '" . (int) $this->instanceConfig( 'geo_zone_id' ) . "' AND country_id = '" . (int) $address['country_id'] . "' AND (zone_id = '" . (int) $address['zone_id'] . "' OR zone_id = '0')" );
+    public function getMethodData( $address, $total, $code = '') {
 
-		if ( $this->instanceConfig( 'total' ) > 0 && $this->instanceConfig( 'total' ) > $total ) {
-			$status = false;
-		} elseif ( ! $this->instanceConfig( 'geo_zone_id' ) ) {
-			$status = true;
-		} elseif ( $query->num_rows ) {
-			$status = true;
-		} else {
-			$status = false;
-		}
+        if ( $this->instanceConfig( 'total' ) > 0 && $this->instanceConfig( 'total' ) > $total ) {
+            $status = false;
+        } elseif ( ! $this->instanceConfig( 'geo_zone_id' ) ) {
+            $status = true;
+        } else {
+            $query = $this->db->query( "SELECT * FROM " . DB_PREFIX . "zone_to_geo_zone WHERE geo_zone_id = '" . (int) $this->instanceConfig( 'geo_zone_id' ) . "' AND country_id = '" . (int) $address['country_id'] . "' AND (zone_id = '" . (int) $address['zone_id'] . "' OR zone_id = '0')" );
+            if ( $query->num_rows ) $status = true;
+            else $status = false;
+        }
 
-		$method_data = array();
+        $method_data = array();
 
-		if ( $status ) {
-			$method_data = array(
-				'code'       => 'quickpay'.$code,
-				'title'      => $this->language->get( 'text_title' ),
-				'terms'      => '',
-				'sort_order' => $this->instanceConfig( 'sort_order' ),
-			);
-		}
+        if ( $status ) {
 
-		return $method_data;
-	}
+            $option_data[$code] = [
+                'code' => $code . '.' . $code,
+                'name' => $this->language->get('text_title')
+            ];
+            $method_data = array(
+                'code'       => $code,
+                'name'       => $this->language->get( 'text_title' ),
+                'terms'      => '',
+                'option'     => $option_data,
+                'sort_order' => $this->instanceConfig( 'sort_order' ),
+            );
+        }
 
+        return $method_data;
+    }
 	/**
 	 * Returns gateway specific payment data
 	 *
